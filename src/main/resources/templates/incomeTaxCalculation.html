@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            business tax calculator
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" th:href="@{/css/singleTaxCalculation.css}">
+    </head>
+
+    <body>
+        <div class="background">
+            <header>
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
+                <nav>
+                    <div class="menu">
+                        <ul id="pagesNavigation" class="pages">
+                            <li><a th:href="@{/client}" id="landingLink" class="link" data-link>Главная</a></li>
+                            <li><a th:href="@{/client/profile}" id="profileLink" class="link" data-link>Профиль</a></li>
+                            <li><a id="taxLink" class="link" data-link>Налоги<i class="material-icons iconNav">arrow_drop_down</i></a>
+                                <ul class="submenu">
+                                    <li><a th:href="@{/calculation}" id="calculateLink" class="link" data-link>Расчет</a></li>
+                                    <li><a href="./history" id="historyLink" class="link" data-link>История</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <form name="logout" th:action="@{/logout}" method="post">
+                        <button id="signOutClientBtn" class="signInBtn" >Выйти</button>
+                    </form>
+                </nav>
+            </header>
+        </div>
+        <main>
+            <div class="cta1">
+                <form class="content1-1" th:object="${incomeTaxForm}" th:action="@{|/calculation/incomeTax/calculate|}" th:method="put">
+                    <p class="title">Подоходный налог</p>
+
+                    <div class="contentField">
+                        <p class="subHeading">Выручка от реализации товаров (работ, услуг), имущественных прав, руб.</p>
+                        <input id="revenueInput" class="inputField" type="text" placeholder="0"
+                               th:field="*{revenue}" th:value="${incomeTaxForm.revenue}" required />
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Внереализационные доходы, руб.</p>
+                        <input id="nonOperatingRevenueInput" class="inputField" type="text" placeholder="0"
+                               th:field="*{nonOperatingRevenue}" th:value="${incomeTaxForm.nonOperatingRevenue}" required />
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Льготы</p>
+                        <input id="privilegeInput" class="inputField" type="text" value="?"
+                            placeholder="Email">
+                    </div>
+                    
+                    <div class="separator"></div>
+
+                    <div class="contentField">
+                        <button onclick="calculate()" class="whiteLongButton">Рассчитать</button>
+                        <div class="contentField">
+                            <p class="subHeading">Итого:</p>
+                            <input id="passwordInput" class="readonlyField" type="text" placeholder="0"
+                                   th:field="*{tax}" th:value="${incomeTaxForm.tax}" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <div class="background">
+            <footer>
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
+                <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
+            </footer>
+        </div>
+
+        <script type="text/javascript" th:src="@{/js/incomeTaxCalculation.js}"></script>
+
+    </body>
+</html>

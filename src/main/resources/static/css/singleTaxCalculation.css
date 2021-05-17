@@ -1,0 +1,25 @@
+@import url("profile.css");
+
+.separator {
+    height: 50px;
+}
+
+.contentField button {
+    margin: 0;
+}
+
+.contentField .readonlyField {
+    border: none;
+	margin: 0;
+	padding: 10px;
+	text-align: right;
+	width: 35%;
+}
+
+.contentField .contentField {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 6px 0;
+}

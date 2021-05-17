@@ -1,0 +1,18 @@
+@import url("main.css");
+
+.iconNav {
+	position: absolute;
+	padding: 0;
+	color: var(--black2);
+	min-width: 30px;
+	text-align: center;
+}
+
+.pages .link:hover .iconNav,
+.pages .link:focus .iconNav {
+    color: var(--turquoise2);
+}
+
+.pages .link:active .iconNav {
+	color: var(--turquoise1);
+}

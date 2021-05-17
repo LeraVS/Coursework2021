@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            business tax calculator
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" th:href="@{/css/profile.css}">
+    </head>
+
+    <body>
+        <div class="background">
+            <header>
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
+                <nav>
+                    <div class="menu">
+                        <ul id="pagesNavigation" class="pages">
+                            <li><a th:href="@{/client}" id="landingLink" class="link" data-link>Главная</a></li>
+                            <li><a th:href="@{/client/profile}" id="profileLink" class="link" data-link>Профиль</a></li>
+                            <li><a id="taxLink" class="link" data-link>Налоги<i class="material-icons iconNav">arrow_drop_down</i></a>
+                                <ul class="submenu">
+                                    <li><a th:href="@{/calculation}" id="calculateLink" class="link" data-link>Расчет</a></li>
+                                    <li><a href="./history" id="historyLink" class="link" data-link>История</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <form name="logout" th:action="@{/logout}" method="post">
+                        <button id="signOutClientBtn" class="signInBtn" >Выйти</button>
+                    </form>
+                </nav>
+            </header>
+        </div>
+        <main>
+            <div class="header">
+                <div class="profileInfo">
+                    <img src="/resource/profileIcon.png" alt="profileIcon">
+                    <div class="mainInfo">
+                        <p class="secondHeadline" th:text="${client.name}"></p>
+                        <p class="subHeading" th:text="${client.typeOfBusiness.name}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="cta1">
+                <form class="content1-1" th:object="${client}" th:action="@{|/client/update/${client.idClient}|}" th:method="put">
+                    <p class="title">Аккаунт</p>
+
+                    <div class="contentField">
+                        <p class="subHeading">Наименование</p>
+                        <input id="fullnameInput" class="inputField" type="text" placeholder="Наименование ИП"
+                                th:field="*{name}", th:value="${client.name}" required />
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Вид деятельности</p>
+                        <select name="type" class="inputField"
+                                th:field="*{typeOfBusiness}" th:name="selectTypeOfBusiness" >
+                            <option th:each="typeOfBusiness: ${typesOfBusiness}" th:value="${typeOfBusiness.idTypeOfBusiness}" th:text="${typeOfBusiness.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Тип объекта</p>
+                        <select name="type" class="inputField"
+                                th:field="*{objectType}" th:name="selectObjectType" >
+                            <option selected value="" >Выберите Тип</option>
+                            <option th:each="objectType: ${objectTypes}" th:value="${objectType.idObjectType}" th:text="${objectType.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Адрес</p>
+                        <input id="addressInput" class="inputField" type="text" placeholder="Адрес ИП"
+                               th:field="*{address}" th:value="${client.address}" required />
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Место торговли</p>
+                        <select name="type" class="inputField"
+                                th:field="*{tradeLocation}" th:name="selectTradeLocation" >
+                            <option selected value="" >Выберите Место</option>
+                            <option th:each="tradeLocation: ${tradeLocations}" th:value="${tradeLocation.idTradeLocation}" th:text="${tradeLocation.name}"></option>
+                        </select>
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Вид налога</p>
+                        <select name="typeOfTax" class="inputField"
+                                th:field="*{typeOfTax}" th:name="selectTypeOfTax" >
+                            <option selected value="" >Выберите вид налога</option>
+                            <option th:each="typeOfTax: ${typesOfTax}" th:value="${typeOfTax.name()}" th:text="${typeOfTax.typeOfTax}"></option>
+                        </select>
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Email</p>
+                        <input id="emailInput" class="inputField" type="email" placeholder="Email"
+                               th:field="*{email}" th:value="${client.email}" required />
+                    </div>
+
+                    <div class="contentField">
+                        <p class="subHeading">Пароль</p>
+                        <input id="passwordInput" class="inputField" type="password" value="12345678" placeholder="Пароль">
+                    </div>
+
+                    <button onclick="saveProfile()" style="margin-top: 16px;" class="whiteLongButton">Сохранить изменения</button>
+                </form>
+            </div>
+        </main>
+
+        <div class="background">
+            <footer>
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
+                <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
+            </footer>
+        </div>
+
+        <script type="text/javascript" th:src="@{/js/authentication.js}"></script>
+
+    </body>
+</html>

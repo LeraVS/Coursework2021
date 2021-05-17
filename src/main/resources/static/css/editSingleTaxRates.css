@@ -1,0 +1,14 @@
+@import url("editRates.css");
+
+.type {
+    width: 350px;
+}
+
+.city {
+    width: 175px;
+}
+
+.rate {
+    width: 175px;
+    overflow-wrap: break-word;
+}

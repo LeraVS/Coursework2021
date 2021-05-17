@@ -1,0 +1,58 @@
+@import url("main.css");
+
+.dialog-background {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(225, 225, 225, 0.2);
+}
+
+.dialog-window {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: center;
+    min-width: 50%;
+    padding: 15px 45px 30px 45px;
+    margin: 3% 15%;
+    background: rgb(56, 56, 56);
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.dialog-window .title {
+    color: var(--white);
+    width: 100%;
+}
+
+.dialog-window .contentField {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0;
+    width: 100%;
+}
+
+.dialog-window .subHeading {
+    font-size: 24px;
+    color: var(--white);
+    max-width: 450px;
+}
+
+.dialog-window .inputField {
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+    width: 50%;
+}
+
+.dialog-window button {
+    margin: 0 10px 0 10px;
+    width: 300px;
+}

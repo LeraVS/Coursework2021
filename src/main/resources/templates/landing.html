@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            business tax calculator
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" th:href="@{/css/registered.css}">
+    </head>
+
+    <body>
+        <div class="background">
+            <header>
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
+                <nav>
+                    <div class="menu">
+                        <ul id="pagesNavigation" class="pages">
+                            <li><a th:href="@{/client}" id="landingLink" class="link" data-link>Главная</a></li>
+                            <li><a th:href="@{/client/profile}" id="profileLink" class="link" data-link>Профиль</a></li>
+                            <li><a id="taxLink" class="link" data-link>Налоги<i class="material-icons iconNav">arrow_drop_down</i></a>
+                                <ul class="submenu">
+                                    <li><a th:href="@{/calculation}" id="calculateLink" class="link" data-link>Расчет</a></li>
+                                    <li><a href="./history" id="historyLink" class="link" data-link>История</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <form name="logout" th:action="@{/logout}" method="post">
+                        <button id="signOutClientBtn" class="signInBtn" >Выйти</button>
+                    </form>
+                </nav>
+            </header>
+        </div>
+        <main>
+            <div class="header">
+                <div class="headingText">
+                    <p class="headline">Присоединяйся и мы поможем!</p>
+                    <p class="subHeading">Самое непостижимое в этом мире — налоговая шкала.<br>© Альберт Эйнштейн</p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="cta1">
+                <div class="content1-1">
+                    <div class="content1-1-1">
+                        <p class="secondHeadline">Остались вопросы?<br>Оставь свой e-mail, и мы обязательно с тобой свяжемся!</p>
+                        <div class="mailInput">
+                            <i class="material-icons icon">email</i>
+                            <input class="inputField" type="text" placeholder="Введите свой email">
+                            <button class="subscribeBtn">Оставить</button>
+                        </div>
+                    </div>
+                    <img style="width: 25%;" src="../resource/faq.svg" alt="faq">
+                </div>
+            </div>
+        </main>
+
+        <div class="background">
+            <footer>
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
+                <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
+            </footer>
+        </div>
+
+        <script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+    </body>
+</html>

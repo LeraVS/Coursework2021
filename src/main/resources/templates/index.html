@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            business tax calculator
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" th:href="@{/css/auth.css}">
+    </head>
+
+    <body>
+        <div class="background">
+            <header>
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
+                <nav class="container">
+                    <div class="dropdown">
+                        <button id="signInBtn" class="signInBtn">Вход</button>
+
+                        <form id="signInDropdown" class="dropdown-content" th:object="${user}" th:action="@{/}" th:method="post">
+                            <p class="subHeading">Sign In Below</p>
+
+                            <div class="inputFieldBox">
+                                <i class="material-icons icon">person</i>
+                                <input id="signInEmail" class="inputField" type="text" placeholder="Логин"
+                                       th:field="*{username}" th:value="${user.username}" required />
+                            </div>
+
+                            <div class="inputFieldBox">
+                                <i class="material-icons icon">lock</i>
+                                <input id="signInPassword" class="inputField" type="password" placeholder="Пароль"
+                                       th:field="*{password}" th:value="${user.password}" required />
+                            </div>
+
+                            <p id="signInError" class="error"></p>
+
+                            <button id="confirmSignInBtn">Войти</button>
+                        </form>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button id="signUpBtn" class="signUpBtn" onclick="openRegistrationDialog()">Регистрация</button>
+
+                        <div id="dialogBackground" class="dialog-background">
+                            <div id="registrationDialog" class="dialog-window">
+                                <form id="registrationForm" class="registrationForm" th:object="${userToRegistr}" th:action="@{/signUp}" th:method="post">
+                                    <p class="title">Sign Up Below</p>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Наименование</p>
+                                        <input id="fullnameInput" class="inputField" type="text" placeholder="Наименование ИП"
+                                               th:field="*{name}", th:value="${userToRegistr.name}" required />
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Вид деятельности</p>
+                                        <select name="typeOfBusiness" class="inputField"
+                                                th:field="*{idTypeOfBusiness}" th:name="selectTypeOfBusiness" required >
+                                            <option selected value="" >Выберите вид деятельности</option>
+                                            <option th:each="typeOfBusiness: ${typesOfBusiness}" th:value="${typeOfBusiness.idTypeOfBusiness}" th:text="${typeOfBusiness.name}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Тип объекта</p>
+                                        <select name="objectType" class="inputField"
+                                                th:field="*{idObjectType}" th:name="selectObjectType" >
+                                            <option selected value="" >Выберите тип объекта</option>
+                                            <option th:each="objectType: ${objectTypes}" th:value="${objectType.idObjectType}" th:text="${objectType.name}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Адрес</p>
+                                        <input id="addressInput" class="inputField" type="text" placeholder="Адрес ИП"
+                                               th:field="*{address}" th:value="${userToRegistr.address}" required />
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Место торговли</p>
+                                        <select name="tradeLocation" class="inputField"
+                                                th:field="*{idTradeLocation}" th:name="selectTradeLocation" >
+                                            <option selected value="" >Выберите место торговли</option>
+                                            <option th:each="tradeLocation: ${tradeLocations}" th:value="${tradeLocation.idTradeLocation}" th:text="${tradeLocation.name}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Вид налога</p>
+                                        <select name="typeOfTax" class="inputField"
+                                                th:field="*{typeOfTax}" th:name="selectTypeOfTax" >
+                                            <option selected value="" >Выберите вид налога</option>
+                                            <option th:each="typeOfTax: ${typesOfTax}" th:value="${typeOfTax.name()}" th:text="${typeOfTax.typeOfTax}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Email</p>
+                                        <input id="emailInput" class="inputField" type="email" placeholder="Email"
+                                               th:field="*{email}" th:value="${userToRegistr.email}" required />
+                                    </div>
+
+                                    <div class="contentField">
+                                        <p class="subHeading">Пароль</p>
+                                        <input id="passwordInput" class="inputField" type="password" value="12345678" placeholder="Пароль"
+                                               th:field="*{password}" th:value="${userToRegistr.password}" required />
+                                    </div>
+
+                                    <p id="signError" class="error"></p>
+
+                                    <button id="confirmSignUpBtn" onclick="saveChanges()">Завершить регистрацию</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        </div>
+        <main>
+            <div class="header">
+                <div class="headingText">
+                    <p class="headline">Присоединяйся и мы поможем!</p>
+                    <p class="subHeading">Самое непостижимое в этом мире — налоговая шкала.<br>© Альберт Эйнштейн</p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="cta1">
+                <div class="content1-1">
+                    <div class="content1-1-1">
+                        <p class="secondHeadline">Остались вопросы?<br>Оставь свой e-mail, и мы обязательно с тобой свяжемся!</p>
+                        <div class="mailInput">
+                            <i class="material-icons icon">email</i>
+                            <input class="inputField" type="text" placeholder="Введите свой email">
+                            <button class="subscribeBtn">Оставить</button>
+                        </div>
+                    </div>
+                    <img style="width: 25%;" src="../resource/faq.svg" alt="faq">
+                </div>
+            </div>
+        </main>
+
+        <div class="background">
+            <footer>
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
+                <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
+            </footer>
+        </div>
+
+        <script type="text/javascript" th:src="@{/js/auth.js}"></script>
+        <script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+    </body>
+</html>

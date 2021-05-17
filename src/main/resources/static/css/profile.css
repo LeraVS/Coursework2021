@@ -1,0 +1,77 @@
+@import url("registered.css");
+
+.profileInfo {
+	width: 90%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 120px;
+}
+
+.profileInfo img {
+	width: 200px;
+	height: 200px;
+	border-radius: 120px;
+}
+
+.profileInfo .mainInfo {
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 32px;
+}
+
+.mainInfo .subHeading {
+	font-style: italic;
+	font-size: 27px;
+}
+
+.header {
+    height: 580px;
+}
+
+.content1-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	justify-content: flex-start;
+    margin: 100px 95px 75px 95px;
+
+}
+
+.content1-1 .title {
+	color: var(--black1);
+	width: 100%;
+}
+
+.content1-1 > .contentField {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 6px 0;
+	width: 100%;
+}
+
+.contentField .subHeading {
+	font-size: 24px;
+	color: var(--black2);
+	max-width: 450px;
+}
+
+.inputField {
+	margin: 0;
+	padding: 10px;
+	text-align: left;
+	width: 35%;
+}
+
+.content1-1 button {
+    margin: 0 10px 0 10px;
+    width: 200px;
+}
+
+

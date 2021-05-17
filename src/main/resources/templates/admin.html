@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            business tax calculator
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="../css/admin.css">
+    </head>
+
+    <body>
+        <div class="background">
+            <header>
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
+                <nav>
+                    <form name="logout" th:action="@{/logout}" method="post">
+                        <button id="signOutClientBtn" class="signInBtn" >Выйти</button>
+                    </form>
+                </nav>
+            </header>
+        </div>
+        <main>
+            <div class="header">
+                <div class="headingText">
+                    <p class="headline">Рады снова вас видеть!</p>
+                    <p class="subHeading">Надеюсь, ты тут, чтобы понизить налоги...<br>© Граждане страны</p>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="cta1">
+                <div class="content1-1">
+                    <p class="secondHeadline">Куда отправляемся?</p>
+                    <div class="content1-1-1">
+                        <a th:href="@{/editSingleTaxRates}"><button id="editSingleTaxRatesBtn" class="signUpBtn">Единый налог</button></a>
+                        <a th:href="@{/editTaxRatesUnderSimplifiedSystem}"><button id="editTaxRatesUnderSimplifiedSystemBtn" class="signUpBtn">УСН</button></a>
+                        <a th:href="@{/editIncomeTaxRates}"><button id="editIncomeTaxRatesBtn" class="signUpBtn">Подоходный налог</button></a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="background">
+            <footer>
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
+                <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
+            </footer>
+        </div>
+
+        <script src="../js/authentication.js"></script>
+
+    </body>
+</html>
