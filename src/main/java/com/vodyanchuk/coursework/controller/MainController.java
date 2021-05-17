@@ -6,6 +6,8 @@ import com.vodyanchuk.coursework.model.Client;
 import com.vodyanchuk.coursework.model.TemporaryUser;
 import com.vodyanchuk.coursework.model.enums.TypeOfTax;
 import com.vodyanchuk.coursework.service.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +38,21 @@ public class MainController {
     public String getClientPage(Model model) {
         model.addAttribute("user", new AuthorizationManager());
         model.addAttribute("userToRegistr", new TemporaryUser());
+        model.addAttribute("error", null);
         setProperties(model);
         return "index";
     }
 
+    @GetMapping("/user")
+    public String getRegisteredPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getName().equals("admin"))
+            return "redirect:/admin";
+        return "redirect:/client";
+    }
+
     @PostMapping("/signUp")
     public String registration(@ModelAttribute("user") TemporaryUser user, Model model) {
-        if (user.getEmail().equals("admin") && user.getPassword().equals("admin"))
-            return "admin";
         Client readyToSaveClient = clientService.preSaveOperation(user);
         clientService.save(readyToSaveClient);
         AuthorizationManager readyToSaveManager = authorizationManagerService.preSaveOperation(user, readyToSaveClient);

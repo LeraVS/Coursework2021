@@ -36,8 +36,6 @@
                                        th:field="*{password}" th:value="${user.password}" required />
                             </div>
 
-                            <p id="signInError" class="error"></p>
-
                             <button id="confirmSignInBtn">Войти</button>
                         </form>
                     </div>
@@ -110,9 +108,7 @@
                                                th:field="*{password}" th:value="${userToRegistr.password}" required />
                                     </div>
 
-                                    <p id="signError" class="error"></p>
-
-                                    <button id="confirmSignUpBtn" onclick="saveChanges()">Завершить регистрацию</button>
+                                    <button id="confirmSignUpBtn">Завершить регистрацию</button>
                                 </form>
                             </div>
                         </div>
@@ -152,6 +148,5 @@
 
         <script type="text/javascript" th:src="@{/js/auth.js}"></script>
         <script type="text/javascript" th:src="@{/js/script.js}"></script>
-
     </body>
 </html>
