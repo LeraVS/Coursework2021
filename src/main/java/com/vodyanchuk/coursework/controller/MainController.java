@@ -57,8 +57,6 @@ public class MainController {
         clientService.save(readyToSaveClient);
         AuthorizationManager readyToSaveManager = authorizationManagerService.preSaveOperation(user, readyToSaveClient);
         authorizationManagerService.save(readyToSaveManager);
-        CalculationHistory readyToSaveHistory = calculationHistoryService.preSaveOperation(readyToSaveClient);
-        calculationHistoryService.save(readyToSaveHistory);
         setProperties(model);
         return "redirect:/client";
     }

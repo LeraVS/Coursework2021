@@ -22,6 +22,4 @@ public class TaxRateUnderSimplifiedSystem {
     @Column(name = "percent")
     private Double percent;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "taxRateUnderSimplifiedSystem")
-    private List<CalculationHistory> calculationHistories;
 }

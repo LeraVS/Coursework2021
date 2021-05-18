@@ -1,6 +1,7 @@
 package com.vodyanchuk.coursework.controller;
 
 import com.vodyanchuk.coursework.model.*;
+import com.vodyanchuk.coursework.model.enums.TypeOfTax;
 import com.vodyanchuk.coursework.service.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,15 +69,10 @@ public class CalculationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = clientService.findByEmail(authentication.getName());
         TemporarySingleTaxRate temporarySingleTaxRate =singleTaxRateService.calculateRate(tSingleTaxRate);
-        SingleTaxRate singleTaxRate = new SingleTaxRate();
-        singleTaxRate.setTypeOfBusiness(typeOfBusinessService.findById(temporarySingleTaxRate.getIdTypeOfBusiness()));
-        singleTaxRate.setTradeLocation(temporarySingleTaxRate.getIdTradeLocation() != null?
-                tradeLocationService.findById(temporarySingleTaxRate.getIdTradeLocation()): null);
-        singleTaxRate.setObjectType(temporarySingleTaxRate.getIdObjectType() != null? objectTypeService.findById(temporarySingleTaxRate.getIdObjectType()):null);
-        singleTaxRate.setCity(temporarySingleTaxRate.getCity());
-        singleTaxRate.setTax(temporarySingleTaxRate.getTax());
-       /* calculationHistoryService.findByClientIdClient(client.getIdClient()).setSingleTaxRate(singleTaxRate);  TODO
-*/
+
+        CalculationHistory calculationHistory = calculationHistoryService.preSaveOperation(client, TypeOfTax.SINGLETAX, temporarySingleTaxRate.getTax());
+        calculationHistoryService.save(calculationHistory);
+
         model.addAttribute("singleTaxForm", temporarySingleTaxRate);
         model.addAttribute("typesOfBusiness", typeOfBusinessService.findAll());
         model.addAttribute("tradeLocations", tradeLocationService.findAll());
@@ -98,10 +94,10 @@ public class CalculationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = clientService.findByEmail(authentication.getName());
         TemporaryIncomeTaxRate temporaryIncomeTaxRate = incomeTaxRateService.calculateRate(tTemporaryIncomeTaxRate);
-        /* IncomeTaxRate incomeTaxRate = new IncomeTaxRate();
 
-        calculationHistoryService.findByClientIdClient(client.getIdClient()).setIncomeTaxRate(incomeTaxRate);  TODO
-*/
+        CalculationHistory calculationHistory = calculationHistoryService.preSaveOperation(client, TypeOfTax.INCOMETAX, tTemporaryIncomeTaxRate.getTax());
+        calculationHistoryService.save(calculationHistory);
+
         model.addAttribute("incomeTaxForm", temporaryIncomeTaxRate);
         return "incomeTaxCalculation";
     }
@@ -120,10 +116,10 @@ public class CalculationController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = clientService.findByEmail(authentication.getName());
         TemporaryTaxRateUnderSimplifiedSystem temporaryTaxRateUnderSimplifiedSystem = taxRateUnderSimplifiedSystemService.calculateRate(tTemporaryTaxRateUnderSimplifiedSystem);
-        /* IncomeTaxRate incomeTaxRate = new IncomeTaxRate();
 
-        calculationHistoryService.findByClientIdClient(client.getIdClient()).setIncomeTaxRate(incomeTaxRate);  TODO
-*/
+        CalculationHistory calculationHistory = calculationHistoryService.preSaveOperation(client, TypeOfTax.TAXUNDERSIMPLIFIEDSYSTEM, tTemporaryTaxRateUnderSimplifiedSystem.getTax());
+        calculationHistoryService.save(calculationHistory);
+
         model.addAttribute("taxRateUnderSimplifiedSystemForm", temporaryTaxRateUnderSimplifiedSystem);
         return "taxUnderSimplifiedSystemCalculation";
     }

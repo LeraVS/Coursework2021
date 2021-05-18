@@ -21,7 +21,4 @@ public class IncomeTaxRate {
     private String criteria;
     @Column(name = "percent")
     private Double percent;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "incomeTaxRate")
-    private List<CalculationHistory> calculationHistories;
 }

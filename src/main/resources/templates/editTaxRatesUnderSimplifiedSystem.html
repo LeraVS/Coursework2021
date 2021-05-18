@@ -16,7 +16,7 @@
     <body>
         <div class="background">
             <header>
-                <img style="width: 7%; margin-top: 30px;" src="../resource/logo.png" alt="logo">
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
                 <nav>
                     <a th:href="@{/admin}"><button id="signOutFromTaxToAdminBtn" class="signInBtn">Вернуться назад</button></a>
                     <form name="logout" th:action="@{/logout}" method="post">
@@ -28,21 +28,27 @@
         <main>
             <div class="cta1">
                 <div class="content1-1">
-                    <form th:object="${taxRateUnderSimplifiedSystemForm}" th:action="@{/admin/taxRatesUnderSimplifiedSystem/update}" th:method="put">
+                    <form class="taxes" th:object="${taxRateUnderSimplifiedSystemForm}" th:action="@{/admin/taxRatesUnderSimplifiedSystem/update}" th:method="put">
                         <div class="content1-1-1">
                             <p class="secondHeadline">Ставки налога при УСН</p>
                             <button>Сохранить изменения</button>
                         </div>
-                        <table>
+                        <table >
                             <tr>
                                 <th class="criteria"><p class="subHeading">Критерий</p></th>
                                 <th class="percent"><p class="subHeading">Ставки налога при УСН, %</p></th>
                                 <th class="delete"></th>
                             </tr>
-                            <tr th:each="taxRateUnderSimplifiedSystem: ${taxRateUnderSimplifiedSystemForm}">
-                                <td class="criteria"><p class="subHeading" th:text="${taxRateUnderSimplifiedSystem.criteria}"></p></td>
-                                <td class="percent"><input th:value="${taxRateUnderSimplifiedSystem.percent}" type="text"></td>
-                                <td class="delete"><button th:action="@{|/admin/taxRatesUnderSimplifiedSystem/dalete/{id} (id=${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem})}" th:method="put"><i class="material-icons">delete</i></button></td>
+                            <tr th:each="taxRateUnderSimplifiedSystem, iterStat: ${taxRateUnderSimplifiedSystemForm.taxRatesUnderSimplifiedSystem}">
+                                <input type="hidden" th:field="*{taxRatesUnderSimplifiedSystem[__${iterStat.index}__].idTaxRateUnderSimplifiedSystem}" th:value="${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem}" />
+                                <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{taxRatesUnderSimplifiedSystem[__${iterStat.index}__].criteria}" th:value="${taxRateUnderSimplifiedSystem.criteria}" type="text" readonly></textarea></td>
+                                <td class="percent"><input th:field="*{taxRatesUnderSimplifiedSystem[__${iterStat.index}__].percent}" th:value="${taxRateUnderSimplifiedSystem.percent}" type="text" /></td>
+                                <td class="delete">
+                                <button type="button" th:value="${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem}" th:data-id="${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem}" th:data-index="${iterStat.index}" onclick="deleteTaxUnderSimplifiedSystem(this.getAttribute('data-id'), this.getAttribute('data-index'))"><i class="material-icons">delete</i></button>
+                                </td>
+<!--
+                                <td class="delete"><button th:action="@{|/admin/taxRatesUnderSimplifiedSystem/delete/{id} (id=${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem})}" th:method="put"><i class="material-icons">delete</i></button></td>
+-->
                             </tr>
                         </table>
                     </form>
@@ -52,12 +58,12 @@
 
         <div class="background">
             <footer>
-                <img style="width: 7%;" src="../resource/logo.png" alt="logo">
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
                 <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
             </footer>
         </div>
 
-        <script src="../js/authentication.js"></script>
+        <script type="text/javascript" th:src="@{/js/editTaxes.js}"></script>
 
     </body>
 </html>

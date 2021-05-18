@@ -1,0 +1,34 @@
+@import url("profile.css");
+
+.cta1 {
+    min-height: 483px;
+}
+
+.content1-1-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 0;
+}
+
+.content1-1-1 .subHeading {
+    font-size: 20px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+table{
+    border-collapse: collapse;
+    min-width: 600px;
+}
+th, td{
+    min-width: 100px;
+    text-align: left;
+    vertical-align: center;
+    padding: 10px;
+    border: none;
+}
+
+tr {
+    border: solid 0.1em var(--turquoise1);
+}

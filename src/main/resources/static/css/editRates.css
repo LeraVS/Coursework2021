@@ -44,3 +44,15 @@ td input {
 	box-sizing: border-box;
     text-align: center;
 }
+
+.delete {
+    border: none;
+    min-width: 30px;
+}
+
+.delete button {
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+}

@@ -4,6 +4,23 @@
     width: 450px;
 }
 
+.criteria .subHeading {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.criteria .criteriaText {
+    border: none;
+    width: 400px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
 .percent {
     width: 250px;
+}
+
+.percent .subHeading {
+    font-size: 20px;
+    line-height: 30px;
 }

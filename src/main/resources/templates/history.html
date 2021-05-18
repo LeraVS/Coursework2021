@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" th:href="@{/css/registered.css}">
+        <link rel="stylesheet" th:href="@{/css/history.css}">
     </head>
 
     <body>
@@ -37,24 +37,28 @@
             </header>
         </div>
         <main>
-            <div class="header">
-                <div class="headingText">
-                    <p class="headline">Присоединяйся и мы поможем!</p>
-                    <p class="subHeading">Самое непостижимое в этом мире — налоговая шкала.<br>© Альберт Эйнштейн</p>
-                </div>
-            </div>
-            <div class="separator"></div>
             <div class="cta1">
                 <div class="content1-1">
                     <div class="content1-1-1">
-                        <p class="secondHeadline">Остались вопросы?<br>Оставь свой e-mail, и мы обязательно с тобой свяжемся!</p>
-                        <div class="mailInput">
-                            <i class="material-icons icon">email</i>
-                            <input class="inputField" type="text" placeholder="Введите свой email">
-                            <button class="subscribeBtn">Оставить</button>
-                        </div>
+                        <p class="secondHeadline">История расчетов</p>
+                        <p class="subHeading"> </p>
                     </div>
-                    <img style="width: 25%;" src="../resource/faq.svg" alt="faq">
+                    <p class="subHeading" th:if="history == null">Нет расчетов!</p>
+                    <table th:if="history != null">
+                        <tr th:each="taxHistory: ${history}">
+                            <td>
+                                <p class="subHeading" th:text="${taxHistory.date}"></p>
+                            </td>
+                            <td class="content1-1-1">
+                                <p class="subHeading">Вид налога: </p>
+                                <p class="subHeading" th:text="${taxHistory.typeOfTax}"></p>
+                            </td>
+                            <td class="content1-1-1">
+                                <p class="subHeading">Итого: </p>
+                                <p class="subHeading" th:text="${taxHistory.tax}"></p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </main>
@@ -66,7 +70,7 @@
             </footer>
         </div>
 
-        <script type="text/javascript" th:src="@{/js/script.js}"></script>
+        <script type="text/javascript" th:src="@{/js/authentication.js}"></script>
 
     </body>
 </html>

@@ -12,4 +12,9 @@ public enum TypeOfTax {
         public String getTypeOfTax() {
             return typeOfTax;
         }
+
+    @Override
+    public String toString() {
+        return typeOfTax;
+    }
 }

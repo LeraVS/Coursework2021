@@ -1,14 +1,26 @@
 @import url("editRates.css");
 
-.type {
-    width: 350px;
+.criteria {
+    max-width: 100px;
 }
 
-.city {
-    width: 175px;
+.criteria .subHeading {
+    font-size: 20px;
+    line-height: 30px;
 }
 
-.rate {
-    width: 175px;
-    overflow-wrap: break-word;
+.criteria .criteriaText {
+    border: none;
+    max-width: 150px;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.percent {
+    width: 250px;
+}
+
+.percent .subHeading {
+    font-size: 20px;
+    line-height: 30px;
 }

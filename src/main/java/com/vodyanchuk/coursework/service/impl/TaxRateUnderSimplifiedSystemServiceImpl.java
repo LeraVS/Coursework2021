@@ -24,7 +24,11 @@ public class TaxRateUnderSimplifiedSystemServiceImpl implements TaxRateUnderSimp
 
     @Override
     public TaxRateUnderSimplifiedSystem update(Long id, TaxRateUnderSimplifiedSystem taxRateUnderSimplifiedSystem) {
-        return null;  //TODO
+        return taxRateUnderSimplifiedSystemRepository.findById(id).map(tax -> {
+            tax.setCriteria(taxRateUnderSimplifiedSystem.getCriteria());
+            tax.setPercent(taxRateUnderSimplifiedSystem.getPercent());
+            return taxRateUnderSimplifiedSystemRepository.save(tax);
+        }).orElseThrow(() -> new ResourceNotFoundException("Ставки не найдены"));
     }
 
     @Override

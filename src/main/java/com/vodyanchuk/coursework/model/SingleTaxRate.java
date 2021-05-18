@@ -33,7 +33,4 @@ public class SingleTaxRate {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idobjecttype")
     private ObjectType objectType;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "singleTaxRate")
-    private List<CalculationHistory> calculationHistories;
 }

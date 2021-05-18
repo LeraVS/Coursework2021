@@ -10,15 +10,15 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" type="text/css" href="../css/editSingleTaxRates.css">
+        <link rel="stylesheet" th:href="@{/css/editSingleTaxRates.css}">
     </head>
 
     <body>
         <div class="background">
             <header>
-                <img style="width: 7%; margin-top: 30px;" src="../resource/logo.png" alt="logo">
+                <img style="width: 7%; margin-top: 30px;" src="/resource/logo.png" alt="logo">
                 <nav>
-                    <a href="./admin.html"><button id="signOutFromSingleToAdminBtn" class="signInBtn">Вернуться назад</button></a>
+                    <a th:href="@{/admin}"><button id="signOutFromSingleToAdminBtn" class="signInBtn">Вернуться назад</button></a>
                     <form name="logout" th:action="@{/logout}" method="post">
                         <button id="signOutClientBtn" class="signInBtn" >Выйти</button>
                     </form>
@@ -28,23 +28,29 @@
         <main>
             <div class="cta1">
                 <div class="content1-1">
-                    <form>
-                        <p class="secondHeadline">Ставки единого налога</p>
+                    <form class="taxes" th:object="${singleTaxRatesForm}" th:action="@{/admin/singleTaxRates/update}" th:method="put">
+                        <div class="content1-1-1">
+                            <p class="secondHeadline">Ставки единого налога</p>
+                            <button>Сохранить изменения</button>
+                        </div>
                         <table>
                             <tr>
                                 <th class="type">Осуществляемый вид деятельности</th>
+                                <th class="city">Место торговли</th>
+                                <th class="city">Тип объекта</th>
                                 <th class="city">Город</th>
                                 <th class="rate">Ставки единого налога за месяц, рублей</th>
                             </tr>
-                            <tr>
-                                <td class="type"><input type="text" placeholder="lol"></td>
-                                <td class="city"><input type="text" placeholder="minsk"></td>
-                                <td class="rate"><input type="text" placeholder="100"></td>
-                            </tr>
-                            <tr>
-                                <td class="type"><input type="text" placeholder="heh"></td>
-                                <td class="city"><input type="text" placeholder="minsk"></td>
-                                <td class="rate"><input type="text" placeholder="300"></td>
+                            <tr th:each="tax, iterStat: ${singleTaxRatesForm.singleTaxRates}">
+                                <input type="hidden" th:field="*{singleTaxRates[__${iterStat.index}__].idSingleTaxRate}" th:value="${tax.idSingleTaxRate}" />
+                                <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{singleTaxRates[__${iterStat.index}__].typeOfBusiness}" th:value="${tax.typeOfBusiness}" th:text="${tax.typeOfBusiness.name}" type="text" readonly></textarea></td>
+                                <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{singleTaxRates[__${iterStat.index}__].tradeLocation}" th:if="${tax.tradeLocation != null}" th:value="${tax.tradeLocation}" type="text" readonly></textarea></td>
+                                <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{singleTaxRates[__${iterStat.index}__].objectType}" th:if="${tax.objectType != null}" th:value="${tax.objectType}" type="text" readonly></textarea></td>
+                                <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{singleTaxRates[__${iterStat.index}__].city}" th:value="${tax.city}" type="text" readonly></textarea></td>
+                                <td class="percent"><input th:field="*{singleTaxRates[__${iterStat.index}__].tax}" th:value="${tax.tax}" type="text" /></td>
+                                <td class="delete">
+                                    <button type="button" th:value="${tax.idSingleTaxRate}" th:data-id="${tax.idSingleTaxRate}" th:data-index="${iterStat.index}" onclick="deleteTaxUnderSimplifiedSystem(this.getAttribute('data-id'), this.getAttribute('data-index'))"><i class="material-icons">delete</i></button>
+                                </td>
                             </tr>
                         </table>
                     </form>
@@ -54,12 +60,12 @@
 
         <div class="background">
             <footer>
-                <img style="width: 7%;" src="../resource/logo.png" alt="logo">
+                <img style="width: 7%;" src="/resource/logo.png" alt="logo">
                 <div class="copyright"><p class="link">Copyright © 2021 Valery Vodyanchuk</p></div>
             </footer>
         </div>
 
-        <script src="../js/authentication.js"></script>
+        <script type="text/javascript" th:src="@{/js/editTaxes.js}"></script>
 
     </body>
 </html>
