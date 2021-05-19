@@ -24,8 +24,12 @@ public class IncomeTaxRateServiceImpl implements IncomeTaxRateService {
 
     @Override
     public IncomeTaxRate update(Long id, IncomeTaxRate incomeTaxRate) {
-        return null;
-    }  // TODO
+        return incomeTaxRateRepository.findById(id).map(tax -> {
+            tax.setCriteria(incomeTaxRate.getCriteria());
+            tax.setPercent(incomeTaxRate.getPercent());
+            return incomeTaxRateRepository.save(tax);
+        }).orElseThrow(() -> new ResourceNotFoundException("Ставки не найдены"));
+    }
 
     @Override
     public void delete(Long id) {

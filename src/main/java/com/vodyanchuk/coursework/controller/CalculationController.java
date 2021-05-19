@@ -43,7 +43,7 @@ public class CalculationController {
         if (client.isTypeIncomeTax())
             return "redirect:/calculation/incomeTax";
         if (client.isTypeTaxRateUnderSimplifiedSystem())
-            return "redirect:/calculation/taxUnderSimplifiedSystem";  // TODO
+            return "redirect:/calculation/taxUnderSimplifiedSystem";
         return null;
     }
 

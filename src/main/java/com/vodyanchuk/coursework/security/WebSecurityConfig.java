@@ -1,8 +1,5 @@
 package com.vodyanchuk.coursework.security;
 
-//import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-//import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
-
 import com.vodyanchuk.coursework.model.enums.Role;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    /*.loginProcessingUrl("/signIn").permitAll()*/
                     .loginPage("/").permitAll()
                     .defaultSuccessUrl("/user")
                 .and()

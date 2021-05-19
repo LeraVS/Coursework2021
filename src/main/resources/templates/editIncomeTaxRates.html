@@ -45,7 +45,7 @@
                                 <td class="criteria"><textarea class="criteriaText" oninput="this.style.height = (this.scrollHeight) + 'px';" th:field="*{incomeTaxRates[__${iterStat.index}__].criteria}" th:value="${tax.criteria}" type="text" readonly></textarea></td>
                                 <td class="percent"><input th:field="*{incomeTaxRates[__${iterStat.index}__].percent}" th:value="${tax.percent}" type="text" /></td>
                                 <td class="delete">
-                                    <button type="button" th:value="${tax.idIncomeTaxRate}" th:data-id="${tax.idIncomeTaxRate}" th:data-index="${iterStat.index}" onclick="deleteTaxUnderSimplifiedSystem(this.getAttribute('data-id'), this.getAttribute('data-index'))"><i class="material-icons">delete</i></button>
+                                    <button type="button" th:value="${tax.idIncomeTaxRate}" th:data-id="${tax.idIncomeTaxRate}" th:data-index="${iterStat.index}" onclick="deleteIncomeTax(this.getAttribute('data-id'), this.getAttribute('data-index'))"><i class="material-icons">delete</i></button>
                                 </td>
                                 <!--
                                                                 <td class="delete"><button th:action="@{|/admin/taxRatesUnderSimplifiedSystem/delete/{id} (id=${taxRateUnderSimplifiedSystem.idTaxRateUnderSimplifiedSystem})}" th:method="put"><i class="material-icons">delete</i></button></td>

@@ -2,24 +2,27 @@ function deleteTaxUnderSimplifiedSystem(taxId, index) {
     let url = '/admin/taxRatesUnderSimplifiedSystem/delete';
     return fetch(url + '/' + taxId, {
         method: 'delete'
-    }).then(response => deleteFromDOM(response, index))
+    }).then(response => {
+        window.location.reload(true);
+    })
 }
 
-function deleteFromDOM(response, index) {
-    let urlParts = response.url.split('/');
-    let taxId = urlParts[6];
-    let divs = document.querySelectorAll('.taxes tr');
-    let currentElement;
-    console.log(taxId);
-    for (let i = 0; i < divs.length; i++) {
-        let button = divs[i].children[4];
-        console.log(button.value);
-        if (button.value === taxId) {
-            currentElement = divs[i];
-            break;
-        }
-    }
-    currentElement.remove();
+function deleteIncomeTax(taxId, index) {
+    let url = '/admin/incomeTaxRates/delete';
+    return fetch(url + '/' + taxId, {
+        method: 'delete'
+    }).then(response => {
+        window.location.reload(true);
+    })
+}
+
+function deleteSingleTax(taxId, index) {
+    let url = '/admin/singleTaxRates/delete';
+    return fetch(url + '/' + taxId, {
+        method: 'delete'
+    }).then(response => {
+        window.location.reload(true);
+    })
 }
 
 var tx = document.getElementsByTagName('textarea');
