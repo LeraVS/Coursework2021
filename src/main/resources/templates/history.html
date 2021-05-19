@@ -39,10 +39,11 @@
         <main>
             <div class="cta1">
                 <div class="content1-1">
-                    <div class="content1-1-1">
+                    <form class="content1-1-1" th:action="@{/client/history/print}" th:method="post">
                         <p class="secondHeadline">История расчетов</p>
-                        <p class="subHeading"> </p>
-                    </div>
+                        <button class="print"><i class="material-icons">print</i></button>
+                        <p class="subHeading message" th:text="${print}">Расчет</p>
+                    </form>
                     <p class="subHeading" th:if="history == null">Нет расчетов!</p>
                     <table th:if="history != null">
                         <tr th:each="taxHistory: ${history}">
@@ -70,7 +71,7 @@
             </footer>
         </div>
 
-        <script type="text/javascript" th:src="@{/js/authentication.js}"></script>
+        <script type="text/javascript" th:src="@{/js/history.js}"></script>
 
     </body>
 </html>

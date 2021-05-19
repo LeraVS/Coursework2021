@@ -1,5 +1,6 @@
 package com.vodyanchuk.coursework.controller;
 
+import com.vodyanchuk.coursework.model.CalculationHistory;
 import com.vodyanchuk.coursework.model.Client;
 import com.vodyanchuk.coursework.model.enums.TypeOfTax;
 import com.vodyanchuk.coursework.service.*;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,6 +59,7 @@ public class ClientController {
     public String getHistoryPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client client = clientService.findByEmail(authentication.getName());
+        model.addAttribute("print", "");
         model.addAttribute("history", calculationHistoryService.findByClientIdClient(client.getIdClient()));
         model.addAttribute("typesOfTax", Stream.of(TypeOfTax.SINGLETAX, TypeOfTax.INCOMETAX, TypeOfTax.TAXUNDERSIMPLIFIEDSYSTEM).collect(Collectors.toList()));
         return "history";
@@ -68,6 +73,37 @@ public class ClientController {
         model.addAttribute("tradeLocations", tradeLocationService.findAll());
         model.addAttribute("objectTypes", objectTypeService.findAll());
         return "redirect:/client/profile";
+    }
+
+    @PostMapping("/history/print")
+    public String printHistory(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Client client = clientService.findByEmail(authentication.getName());
+
+        try(FileWriter writer = new FileWriter("E:\\Учёба\\Курсовые работы\\6 семестр\\Курсовая работа\\history.txt", false))
+        {
+            // запись всей строки
+            String text = "Business tax calculator\n"
+                        + "История расчетов\n\n"
+                        +"==================================\n";
+            List<CalculationHistory> histories = calculationHistoryService.findByClientIdClient(client.getIdClient());
+            if (histories.isEmpty())
+                text += "Истории нет.";
+            else {
+                for (CalculationHistory history : histories)
+                    text += history.getDate() + " - " + history.getTypeOfTax() + " - " + history.getTax() + "\n";
+                text += "==================================\n";
+            }
+            writer.write(text);
+            writer.flush();
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        model.addAttribute("print", "Запись прошла успешно!");
+        model.addAttribute("history", calculationHistoryService.findByClientIdClient(client.getIdClient()));
+        model.addAttribute("typesOfTax", Stream.of(TypeOfTax.SINGLETAX, TypeOfTax.INCOMETAX, TypeOfTax.TAXUNDERSIMPLIFIEDSYSTEM).collect(Collectors.toList()));
+        return "history";
     }
 
 }
